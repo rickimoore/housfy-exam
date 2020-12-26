@@ -11,15 +11,14 @@ import Button from "@material-ui/core/Button";
 import {closeReportModal, setControlView, clearDetectedCollisions} from "../redux/actions";
 
 class CollisionReport extends React.Component {
-    handleClose = () => {
-
-    }
+    handleClose = () => {}
     renderDetectionMessage = () => {
         const {detectedObjects, classes} = this.props;
         return (
             <React.Fragment>
                 <h1>Collision Detected!</h1>
-                <p>Our rover detected {`( ${detectedObjects.length} )`} obstacle collisions on mars. Collisions were detected at the following (X, Y) locations: </p>
+                <p>Rover detected {`( ${detectedObjects.length} )`} obstacle {`collision${detectedObjects.length > 1 ? 's ' : ' '}`}
+                on mars. {`Collision${detectedObjects.length > 1 ? 's were ' : ' was '}`} detected at the following (X, Y) {`location${detectedObjects.length > 1 ? 's' : ''}`}: </p>
                 <ul className={classes.list}>
                     {detectedObjects.map((obj, key) => (
                         <li key={key}>{`( ${obj.x}, ${obj.y} )`}</li>
@@ -42,8 +41,16 @@ class CollisionReport extends React.Component {
         dispatch(closeReportModal());
         setTimeout(() => dispatch(setControlView()), 0);
     }
+    renderOffWorldMessage = () => {
+        return (
+            <React.Fragment>
+                <h2>Off World Path!</h2>
+                <p>Rover's path leads off world. Please provide new commands.</p>
+            </React.Fragment>
+        )
+    }
     render() {
-        const {isCollisionReportModal, detectedObjects, classes} = this.props;
+        const {isCollisionReportModal, isOffWorldPathDetected, detectedObjects, classes} = this.props;
         return (
             <Modal
                 className={classes.modal}
@@ -60,7 +67,8 @@ class CollisionReport extends React.Component {
                 <Fade in={isCollisionReportModal}>
                     <Card className={classes.paper}>
                         {detectedObjects && this.renderDetectionMessage()}
-                        {!detectedObjects && this.renderSuccessMessage()}
+                        {isOffWorldPathDetected && this.renderOffWorldMessage()}
+                        {!detectedObjects && !isOffWorldPathDetected && this.renderSuccessMessage()}
                         <Button onClick={() => this.returnToControl()} style={{background: '#3BB9FF', marginBottom: 15, marginTop: 15}} variant="contained" color="primary">
                             Return To Control
                         </Button>
@@ -77,6 +85,7 @@ CollisionReport.propTypes = {
 
 const mapStateToProps = state => ({
     isCollisionReportModal: state.modalUI.isCollisionReportModal,
+    isOffWorldPathDetected: state.modalUI.isOffWorldPathDetected,
     detectedObjects: state.modalUI.detectedObjects,
 });
 

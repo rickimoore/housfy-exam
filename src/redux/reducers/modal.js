@@ -2,6 +2,7 @@ import { ActionTypes as types } from '../actions/types';
 
 const initialState = {
     isCollisionReportModal: null,
+    isOffWorldPathDetected: false,
     detectedObjects: null,
 };
 
@@ -14,6 +15,8 @@ const modalUI = (state = initialState, action) => {
             return { ...state, isCollisionReportModal: false};
         case types.SET_COLLISIONS_DETECTED:
             return { ...state, detectedObjects: action.detectedObjects}
+        case types.SET_OFF_WORLD_PATH_DETECTED:
+            return {...state, isOffWorldPathDetected: true}
         case types.CLEAR_DETECTIONS:
             return initialState;
         default:

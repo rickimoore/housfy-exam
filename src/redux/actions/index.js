@@ -6,4 +6,5 @@ export const openReportModal = payload => ({ type: types.OPEN_COLLISION_REPORT, 
 export const closeReportModal = payload => ({type: types.CLOSE_COLLISION_REPORT, ...payload})
 export const setMissionControl = payload => ({ type: types.SET_MISSION_CONTROL, ...payload });
 export const setCollisionsDetected = payload => ({type: types.SET_COLLISIONS_DETECTED, ...payload});
-export const clearDetectedCollisions = () => ({type: types.CLEAR_DETECTIONS})
+export const setOffWorldPathDetected = () => ({type: types.SET_OFF_WORLD_PATH_DETECTED});
+export const clearDetectedCollisions = () => ({type: types.CLEAR_DETECTIONS});

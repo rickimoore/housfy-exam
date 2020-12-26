@@ -1,7 +1,7 @@
 import React from 'react';
 import roverImage from "./rover.svg"
 import {connect} from "react-redux";
-import {openReportModal, setCollisionsDetected} from "../redux/actions";
+import {openReportModal, setCollisionsDetected, setOffWorldPathDetected} from "../redux/actions";
 import {CARDINAL_POSITIONS, SPEED} from "../helpers/constants";
 
 const styles = {
@@ -28,6 +28,7 @@ class MarsMission extends React.Component {
             hitBox: null,
             mission: null,
             isImminentCollision: false,
+            isRoverGoingOffWorld: false,
             activeCommand: 0,
             detectedObjects: null,
             obstacles: []
@@ -39,7 +40,6 @@ class MarsMission extends React.Component {
         });
 
         setTimeout(() => {
-            this.generateObstacles();
             this.generateRover();
         }, 0)
     }
@@ -75,13 +75,21 @@ class MarsMission extends React.Component {
     }
 
     executeSequence = () => {
-        const {isImminentCollision, activeCommand, detectedObjects} = this.state;
+        const {isImminentCollision, activeCommand, detectedObjects, isRoverGoingOffWorld} = this.state;
         const {dispatch, commands} = this.props;
 
         if(isImminentCollision) {
             console.log('COLLISION DETECTED...')
             console.log('END SEQUENCE...')
             dispatch(setCollisionsDetected({detectedObjects}))
+            dispatch(openReportModal());
+            return;
+        }
+
+        if(isRoverGoingOffWorld) {
+            console.log('OFF WORLD PATH DETECTED')
+            console.log('END SEQUENCE...')
+            dispatch(setOffWorldPathDetected());
             dispatch(openReportModal());
             return;
         }
@@ -135,11 +143,26 @@ class MarsMission extends React.Component {
         this.renderObstacles();
         this.renderRover();
         this.detectCollision();
+        this.detectOutOfBounds();
+    }
+
+    detectOutOfBounds = () => {
+        const {rover, canvas, mission} = this.state;
+        if(!rover) return;
+
+        const nextPos = this.nextCoordinate(rover.cardinalPos, parseInt(rover.x), parseInt(rover.y));
+
+        if(nextPos.y < 0 || nextPos.x < 0 || nextPos.x > canvas.canvas.width || nextPos.y > canvas.canvas.height) {
+            clearInterval(mission)
+            this.setState({
+                isRoverGoingOffWorld: true
+            })
+        }
     }
 
     detectCollision = () => {
         const {obstacles, hitBox, mission} = this.state;
-        if(obstacles.length === 0 || !hitBox) return false;
+        if(obstacles.length === 0 || !hitBox) return;
         const hits = obstacles.filter(obs => this.detectHitBoxCollision(hitBox, obs))
         if(hits.length >= 1) {
             clearInterval(mission)
@@ -178,21 +201,25 @@ class MarsMission extends React.Component {
     }
 
     generateObstacles = () => {
-        const {canvas} = this.state;
-        const count = this.randInRange(1, 10);
+        const {canvas, hitBox} = this.state;
+        const count = this.randInRange(3, 10);
         const w = 40;
         const h = 40;
 
         let obstacles = [];
 
         for(let i = 0; i < count; i++) {
-            obstacles.push({
+            const obs = {
                 x: this.randInRange(0, canvas.canvas.width - w),
                 y: this.randInRange(0, canvas.canvas.height - h),
                 color: '#A12E2B',
                 w,
                 h
-            })
+            };
+
+            if(!this.detectHitBoxCollision(hitBox,obs)) {
+                obstacles.push(obs)
+            }
         }
         this.setState({obstacles})
     }
@@ -216,6 +243,8 @@ class MarsMission extends React.Component {
                     icon: img
                 }
             });
+
+            this.generateObstacles();
 
             const mission = setInterval(() => this.draw(), 1000/60);
 
