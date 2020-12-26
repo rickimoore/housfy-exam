@@ -36,7 +36,7 @@ Take into account
 
 
 ## Prerequisites
-● Project requires node -v `10.10.0`
+● Project requires node -v `12.0.0`
 
 ## HOW TO RUN LOCALLY:
 
