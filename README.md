@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Welcome to Housfy's Mission to Mars
 
+This project was created in response to a test application given by Housfy and developed by Ricki Moore.
+Below you will find test instructions and manual for how to build and run the project locally.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+#Test instructions
 
-In the project directory, you can run:
+###Mars Rover Mission
 
-### `npm start`
+Your Task
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+You’re part of the team that explores Mars by sending remotely controlled vehicles to the surface
+of the planet. Develop a software that translates the commands sent from earth to instructions
+that are understood by the rover.
+Requirements
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+● You are given the initial starting point (x,y) of a rover and the direction (N,S,E,W)
+it is facing.
 
-### `npm test`
+● The rover receives a collection of commands. (E.g.) FFRRFFFRL
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+● The rover can move forward (f).
 
-### `npm run build`
+● The rover can move left/right (l,r).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+● Suppose we are on a really weird planet that is square. 200x200 for example :)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+● Implement obstacle detection before each move to a new square. If a given
+sequence of commands encounters an obstacle, the rover moves up to the last
+possible point, aborts the sequence and reports the obstacle.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Take into account
 
-### `npm run eject`
+● Rovers are expensive, make sure the software works as expected.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Prerequisites
+● Project requires node -v 10.10.0
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## HOW TO RUN LOCALLY:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+● Download Project
+`git clone https://github.com/rickimoore/housfy-exam.git`
 
-## Learn More
+● Install dependencies
+`npm install`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+● Run Project
+`npm start`
