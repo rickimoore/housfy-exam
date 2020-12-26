@@ -99,13 +99,25 @@ class MissionControl extends React.Component {
             </div>
         )
     }
-    addInput = () => {
+    addInputCommands = () => {
+        const {commandInput} = this.state;
+
+        const separatedCommands = commandInput.split('');
+
+        separatedCommands.forEach(command => {
+            const formattedCommand = command.toUpperCase();
+            if(formattedCommand !== 'F' && formattedCommand !== 'L' && formattedCommand !== 'R') return;
+            this.setCommand(formattedCommand);
+        });
+        this.setState({commandInput: ''});
+    }
+    setCommand = (command) => {
         this.setState(state => {
             return {
                 ...state,
                 form: {
                     ...state.form,
-                    commands: [...state.form.commands, ...[state.commandInput.toUpperCase()]]
+                    commands: [...state.form.commands, ...[command]]
                 }
             }
         })
@@ -145,8 +157,8 @@ class MissionControl extends React.Component {
                 <p>Provide the mars rover with a list of instructions. Instructions may include: F (forward), L (left), R (right). </p>
                 <div className={classes.flexRow}>
                     <TextField value={commandInput} onChange={(e) => this.setState({commandInput: e.target.value})} id="outlined-basic" label="Outlined" variant="outlined" />
-                    <Button disabled={!commandInput || (commandInput.toUpperCase() !== 'F' && commandInput.toUpperCase() !== 'L' && commandInput.toUpperCase() !== 'R')}
-                            onClick={() => this.addInput()}
+                    <Button disabled={!commandInput}
+                            onClick={() => this.addInputCommands()}
                             style={{background: '#3BB9FF', marginBottom: 15, marginTop: 15, marginLeft: 15}}
                             variant="contained" color="primary">
                         Add
