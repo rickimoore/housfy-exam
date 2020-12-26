@@ -36,7 +36,7 @@ Take into account
 
 
 ## Prerequisites
-● Project requires node -v 10.10.0
+● Project requires node -v `10.10.0`
 
 ## HOW TO RUN LOCALLY:
 
@@ -48,3 +48,6 @@ Take into account
 
 ● Run Project
 `npm start`
+
+● Visit this link in your browser
+`http://localhost:3000/`
