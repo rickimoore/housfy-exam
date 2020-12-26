@@ -4,9 +4,9 @@ This project was created in response to a test application given by Housfy and d
 Below you will find test instructions and manual for how to build and run the project locally.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-#Test instructions
+##Test instructions
 
-###Mars Rover Mission
+Mars Rover Mission
 
 Your Task
 
