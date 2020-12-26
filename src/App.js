@@ -1,25 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import MarsMission from "./components/MarsMission";
+import CollisionReport from "./components/CollisionReport";
+import React from "react";
+import MissionControl from "./components/MissionControl";
+import {connect} from "react-redux";
+import {CONTROL, MISSION} from "./helpers/constants";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    render() {
+        const {view} = this.props;
+        return (
+            <div className="App">
+                {view === CONTROL && <MissionControl/>}
+                {view === MISSION && <MarsMission/>}
+                <CollisionReport/>
+            </div>
+        )
+    }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    view: state.app.view,
+});
+
+export default connect(mapStateToProps)(App);
