@@ -1,6 +1,6 @@
 # Welcome to Housfy's Mission to Mars
 
-This project was created in response to a test application given by Housfy and developed by Ricki Moore.
+This project was created in response to a test application given by Housfy and developed by [Ricki Moore](https://www.linkedin.com/in/ricki-moore-511a2110a/).
 Below you will find test instructions and manual for how to build and run the project locally.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
